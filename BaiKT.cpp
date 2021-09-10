@@ -15,7 +15,6 @@ Z1>z2: khi module z1>module z2
 */
 //khai báo thư viện 
 #include<iostream>
-#include<string>
 using namespace std;
 // khai báo tên lớp 
 class SP1
@@ -74,6 +73,7 @@ public:
 	void operator = (SP2& );
 	bool operator > (SP2&);
 	bool operator == (const SP2& );
+	friend int dem(SP2* sp, int n);
 };
 /*2.	Xây dựng lớp SP2 kế thừa từ lớp SP1 và bổ sung:
 Nạp chồng các toán tử : = (gán), > (nhỏ hơn), == (so sánh bằng)*/
@@ -124,26 +124,29 @@ void xuatN(SP2* sp,int n) {
 	}
 }
 //Tìm số phức có giá trị lớn nhất và đếm xem có bao nhiêu số phức trong danh sách có giá trị bằng 3+4i.
-SP2 search(SP2* sp, int n) {
+void search(SP2* sp, int n) {
 	SP2 max = sp[0];
+	//duyệt mảng để kiểm tra các phần tử 
 	for (int i = 0; i < n; i++)
 	{
+		//kiểm tra và thực hiện gán phần tử nào max
 		if (sp[i] > max) {
 			max = sp[i];
 		}
 	}
-	return max;
+	//xuất ra sau khi tìm được phần tử max trong mảng;
+	max.xuat();
 }
+//đếm xem có bao nhiêu số phức trong danh sách có giá trị bằng 3+4i.
 int dem(SP2* sp, int n) {
-	SP2 a = 
-	//đếm xem có bao nhiêu số phức trong danh sách có giá trị bằng 3+4i.
 	int count = 0;
 	for (int i = 0; i < n; i++)
 	{
-		if () {
-
+		if ((sp + i)->Phan_Thuc == 3 && (sp + i)->Phan_Ao == 4) {
+			count++;
 		}
 	}
+	return count;
 }
 int main() {
 	int n;
@@ -155,4 +158,9 @@ int main() {
 	SP2* SP = new SP2[n];
 	nhapN(SP, n);
 	xuatN(SP, n);
+	// số phức có giá trị lớn nhất 
+	cout << "So Phuc co gia tri lon nhat : ";
+	search(SP, n);
+	cout << "\nSo Luong so luong so phuc trong danh sach co gia tri bang 3+4i là: " << dem(SP,n);
+	delete[] SP;
 }
