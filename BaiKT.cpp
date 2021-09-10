@@ -69,10 +69,11 @@ public:
 	~SP2()
 	{
 	}
-	//khai báo các phuognư thức nạp chồng
+	//khai báo các phương thức nạp chồng
 	void operator = (SP2& );
 	bool operator > (SP2&);
 	bool operator == (const SP2& );
+	//khai báo hàm bạn để truy xuất được giá trị của lớp con và lớp cha
 	friend int dem(SP2* sp, int n);
 };
 /*2.	Xây dựng lớp SP2 kế thừa từ lớp SP1 và bổ sung:
@@ -82,32 +83,19 @@ bool SP2::operator == (const SP2& SP) {
 	// Neu tra ve false thi hai so phuc khac nhau
 	return ((this->Phan_Thuc == SP.Phan_Thuc) && (this->Phan_Ao == SP.Phan_Ao));
 }
-
+// thực hiện nạp chồng toán tử gán =
 void SP2::operator = (SP2& a) {
+	// gán phần thực của đối tượng truyền vào cho phần thực của đối tượng trung gian là con trỏ this
 	this->Phan_Thuc = a.Phan_Thuc;
+	// gán phần ảo của đối tượng truyền vào cho phần ảo của đối tượng trung gian là con trỏ this
 	this->Phan_Ao = a.Phan_Ao;
 }
-
+//thực hiện nạp chồng toán tử so sánh >
 bool SP2::operator > ( SP2& a) {
 	return this->Module() > a.Module();
 }
 
-
-void sosanh(SP2 a, SP2 b) {
-	if (a == b)
-		cout << "\n\nSo phuc thu nhat bang so phuc thu hai. ";
-	else cout << "\n\nSo phuc thu nhat khac so phuc thu hai. ";
-
-	cout << endl << endl;
-}
-void sosanhhon(SP2 a, SP2 b) {
-	if (a > b) {
-		cout << "So phuc 1 lon hon so phuc 2";
-	}
-	else {
-		cout << "So phuc 2 lon hon so phuc 1";
-	}
-}
+//hàm nhập n số phức tương tụ xuất n số phức
 void nhapN(SP2* sp, int n) {
 	for (int i = 0; i < n; i++)
 	{
@@ -115,10 +103,12 @@ void nhapN(SP2* sp, int n) {
 		(sp + i)->nhap();
 	}
 }
+// xuất n số phức
 void xuatN(SP2* sp,int n) {
-	for (int  i = 0; i < n; i++)
+	for (int  i = 0; i < n; i++)//vòng lặp để nhập được từ phần tử thứ 0 đến phần tử n
 	{
 		cout << "So Phuc thu : " << i + 1 << endl;
+		//xuất giá trị phần tử số phức ở vị i
 		(sp + i)->xuat();
 		cout << endl;
 	}
@@ -139,11 +129,12 @@ void search(SP2* sp, int n) {
 }
 //đếm xem có bao nhiêu số phức trong danh sách có giá trị bằng 3+4i.
 int dem(SP2* sp, int n) {
-	int count = 0;
-	for (int i = 0; i < n; i++)
+	int count = 0;// biến để lưu số lượng
+	for (int i = 0; i < n; i++)//duyệt từ đầu đến phần tử số phức cuối cùng để kiểm tra n số phức
 	{
+		// điều kiện để số phức thứ i bằng số phức 3 + 4i thực = thực , ảo = ảo
 		if ((sp + i)->Phan_Thuc == 3 && (sp + i)->Phan_Ao == 4) {
-			count++;
+			count++;//tăng lên nếu điều kiện đúng là 2 phần bằng nhau
 		}
 	}
 	return count;
@@ -155,8 +146,10 @@ int main() {
 		cout << "Nhap Vao so luong so phuc: ";
 		cin >> n;
 	} while (n > 10);
+	//nhập dãy n số phức
 	SP2* SP = new SP2[n];
 	nhapN(SP, n);
+	//xuất dãy n số phức
 	xuatN(SP, n);
 	// số phức có giá trị lớn nhất 
 	cout << "So Phuc co gia tri lon nhat : ";
